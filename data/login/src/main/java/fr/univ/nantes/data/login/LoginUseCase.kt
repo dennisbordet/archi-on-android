@@ -1,6 +1,9 @@
 package fr.univ.nantes.data.login
 
-class LoginUseCase {
+
+class LoginUseCase(
+    private val loginRepository: LoginRepository
+) {
     @Throws(
         LoginException.WrongPasswordException::class,
         LoginException.NotExistingException::class
@@ -9,12 +12,13 @@ class LoginUseCase {
         username: String,
         password: String
     ): User {
+        val response = loginRepository.authenticateUser(username, password)
         return when {
-            username != "admin" -> throw LoginException.NotExistingException
-            password != "admin" -> throw LoginException.WrongPasswordException
+            response.isEmpty() -> throw LoginException.NotExistingException
+            response.count() == 1 && response.first() == "" -> throw LoginException.WrongPasswordException
             else -> User(
-                username = "MIAGE qui a bien avancé le tp",
-                email = "miage@univ-nantes.fr"
+                username = response[0],
+                email = response[1]
             )
         }
     }
