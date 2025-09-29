@@ -1,7 +1,11 @@
 package fr.univ.nantes.data.login
 
-class LoginRepositoryMockImpl : LoginRepository {
-    override suspend fun authenticateUser(
+class LoginUseCase {
+    @Throws(
+        LoginException.WrongPasswordException::class,
+        LoginException.NotExistingException::class
+    )
+    fun authenticateUser(
         username: String,
         password: String
     ): User {
