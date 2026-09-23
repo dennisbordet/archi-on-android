@@ -1,12 +1,11 @@
 plugins {
     alias(libs.plugins.android.application)
-    alias(libs.plugins.kotlin.android)
     alias(libs.plugins.kotlin.compose)
 }
 
 android {
     namespace = "fr.univ.nantes.archi"
-    compileSdk = 36
+    compileSdk = 37
 
     defaultConfig {
         applicationId = "fr.univ.nantes.archi"
@@ -30,9 +29,6 @@ android {
     compileOptions {
         sourceCompatibility = JavaVersion.VERSION_11
         targetCompatibility = JavaVersion.VERSION_11
-    }
-    kotlinOptions {
-        jvmTarget = "11"
     }
     buildFeatures {
         compose = true
